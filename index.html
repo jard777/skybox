@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skybox do Jardson</title>
+
+    <!-- Todo o estilo fica aqui dentro, na tag <style> -->
+    <style>
+        /* Cores do site: mude aqui e o site inteiro muda */
+        :root {
+            --ceu: #cfe8ff;
+            --ceu-fundo: #8fc5f5;
+            --azul-escuro: #12305a;
+            --sol: #ffc857;
+            --branco: #ffffff;
+        }
+
+        /* Reset básico: tira margens padrão do navegador */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            color: var(--azul-escuro);
+            background: var(--branco);
+            line-height: 1.6;
+        }
+
+        /* Topo do site */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        nav a {
+            color: var(--azul-escuro);
+            text-decoration: none;
+            margin-left: 24px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Primeira tela: céu com a caixa flutuando */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 120px 6vw 80px;
+            background: linear-gradient(180deg, var(--ceu-fundo) 0%, var(--ceu) 70%, var(--branco) 100%);
+        }
+
+        .hero-texto {
+            max-width: 560px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.6rem, 7vw, 4.8rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 32px;
+            max-width: 46ch;
+        }
+
+        .botao {
+            display: inline-block;
+            background: var(--azul-escuro);
+            color: var(--branco);
+            padding: 14px 28px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .botao:hover {
+            background: #1d4a88;
+        }
+
+        .botao:focus-visible,
+        nav a:focus-visible {
+            outline: 3px solid var(--sol);
+            outline-offset: 3px;
+        }
+
+        /* A caixa no céu, feita só com CSS */
+        .caixa {
+            flex-shrink: 0;
+            width: min(280px, 40vw);
+            aspect-ratio: 1;
+            background: var(--sol);
+            border: 6px solid var(--azul-escuro);
+            border-radius: 18px;
+            box-shadow: 14px 14px 0 var(--azul-escuro);
+            animation: flutuar 5s ease-in-out infinite;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50%      { transform: translateY(-24px) rotate(3deg); }
+        }
+
+        /* Quem tem animação desativada no sistema não vê o movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .caixa { animation: none; }
+        }
+
+        /* Seção "Sobre" */
+        .sobre {
+            padding: 80px 6vw;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .sobre h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
+        }
+
+        .topicos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+        }
+
+        .topicos h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            padding-top: 14px;
+            border-top: 4px solid var(--sol);
+        }
+
+        /* Chamada final */
+        .contato {
+            background: var(--azul-escuro);
+            color: var(--branco);
+            text-align: center;
+            padding: 80px 6vw;
+        }
+
+        .contato h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            margin-bottom: 12px;
+        }
+
+        .contato p {
+            margin-bottom: 28px;
+        }
+
+        .contato .botao {
+            background: var(--sol);
+            color: var(--azul-escuro);
+        }
+
+        .contato .botao:hover {
+            background: #ffd77f;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.9rem;
+        }
+
+        /* Ajuste para celular: empilha o texto e a caixa */
+        @media (max-width: 720px) {
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+            }
+            .caixa {
+                align-self: center;
+                width: 160px;
+            }
+            nav a { margin-left: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="logo">skybox</span>
+        <nav>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-texto">
+                <h1>Aprendendo tecnologia, um commit por vez.</h1>
+                <p>Oi, eu sou o Jardson. Este é o meu primeiro site, feito com HTML e CSS e publicado no GitHub.</p>
+                <a class="botao" href="#sobre">Conheça o projeto</a>
+            </div>
+            <div class="caixa" aria-hidden="true"></div>
+        </section>
+
+        <section class="sobre" id="sobre">
+            <h2>O que é a skybox?</h2>
+            <div class="topicos">
+                <div>
+                    <h3>Meu laboratório</h3>
+                    <p>Um espaço para testar ideias, errar e tentar de novo enquanto aprendo a programar.</p>
+                </div>
+                <div>
+                    <h3>Feito do zero</h3>
+                    <p>Cada linha desta página foi escrita no VS Code e enviada para o GitHub com Git.</p>
+                </div>
+                <div>
+                    <h3>Sempre mudando</h3>
+                    <p>Conforme eu estudar mais, este site vai ganhar novas seções e novos projetos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contato" id="contato">
+            <h2>Vamos conversar?</h2>
+            <p>Quer trocar ideias sobre tecnologia ou ver meus outros projetos?</p>
+            <a class="botao" href="https://github.com/jard777" target="_blank" rel="noopener">Ver meu GitHub</a>
+        </section>
+    </main>
+
+    <footer>
+        Feito por Jardson, 2026.
+    </footer>
+
+</body>
+</html>
